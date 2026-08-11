@@ -48,30 +48,30 @@ export const SITE = {
         label: "LinkedIn",
       },
       {
-        href: "https://testchili.mattdekenah.com",
-        title: "Software Testing Blog",
-        icon: "fa6-brands:wordpress",
-        label: "Software testing blog",
-      },
-      {
         href: "https://github.com/MattDekenah",
         title: "github.com/MattDekenah",
         icon: "fa6-brands:github",
         label: "GitHub",
       },
+      {
+        href: "https://testchili.mattdekenah.com",
+        title: "Software Testing Blog",
+        icon: "fa6-brands:wordpress",
+        label: "Software testing blog",
+      },
     ],
     play: [
-      {
-        href: "https://threads.net/MattDekenah",
-        title: "@MattDekenah",
-        icon: "fa6-brands:threads",
-        label: "Threads",
-      },
       {
         href: "https://instagram.com/MattDekenah",
         title: "@MattDekenah",
         icon: "fa6-brands:instagram",
         label: "Instagram",
+      },
+      {
+        href: "https://last.fm/user/mattdekenah",
+        title: "Last.fm: mattdekenah",
+        icon: "fa6-brands:lastfm",
+        label: "Last.fm",
       },
       {
         href: "https://blog.mattdekenah.com",
@@ -80,10 +80,16 @@ export const SITE = {
         label: "Personal blog",
       },
       {
-        href: "https://last.fm/user/mattdekenah",
-        title: "Last.fm: mattdekenah",
-        icon: "fa6-brands:lastfm",
-        label: "Last.fm",
+        href: "https://threads.net/MattDekenah",
+        title: "@MattDekenah",
+        icon: "fa6-brands:threads",
+        label: "Threads",
+      },
+      {
+        href: "https://bsky.app/profile/mattdekenah.com",
+        title: "@mattdekenah.com",
+        icon: "fa6-brands:bluesky",
+        label: "Bluesky",
       },
     ],
   },

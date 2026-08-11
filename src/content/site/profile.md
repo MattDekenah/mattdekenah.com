@@ -3,7 +3,7 @@ interests: "Activism and advocacy, cooking and gastronomy, history, languages, m
 ---
 
 A highly motivated, intelligent, and adaptable software engineering professional
-with over sixteen years of experience — predominantly in highly agile
+with almost two decades of experience — predominantly in highly agile
 environments — Matthew has diverse experience throughout the entire software
 development and test lifecycles. Apart from a highly analytical and hands-on
 approach to problem solving, Matthew specialises in adapting the culture and
