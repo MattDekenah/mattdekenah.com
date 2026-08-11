@@ -95,7 +95,7 @@ export const SITE = {
   // The original site has no contact form — it links to a mailto: address.
   // Flip this to true to add a "Contact" section (and nav entry) backed by
   // Web3Forms. Set web3formsKey above first.
-  showContact: false,
+  showContact: true,
 };
 
 export const EMAIL = `${SITE.emailUser}@${SITE.emailDomain}`;
