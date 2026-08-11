@@ -19,9 +19,7 @@
       "languages": [
         { "name": "French", "nativeName": "Français", "icon": "flag:fr-4x3" },
         { "name": "German", "nativeName": "Deutsch", "icon": "flag:de-4x3" },
-        { "name": "Italian", "nativeName": "Italiano", "icon": "flag:it-4x3" },
-        { "name": "Welsh", "nativeName": "Cymraeg", "icon": "flag:gb-wls-4x3" },
-        { "name": "Russian", "nativeName": "Pусский", "icon": "flag:ru-4x3" }
+        { "name": "Welsh", "nativeName": "Cymraeg", "icon": "flag:gb-wls-4x3" }
       ]
     }
   ]
