@@ -90,7 +90,7 @@ export const SITE = {
 
   // Web3Forms access key — create one free at https://web3forms.com using
   // m@dekenah.com, then paste it here. The form will not send until you do.
-  web3formsKey: "",
+  web3formsKey: "d55bac3f-6223-48e7-92cc-13a694c713f0",
 
   // The original site has no contact form — it links to a mailto: address.
   // Flip this to true to add a "Contact" section (and nav entry) backed by
