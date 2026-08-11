@@ -1,0 +1,31 @@
+{
+  "technologies": [
+    { "label": "Python", "icon": "devicon-plain:python-wordmark" },
+    { "label": "Ruby", "icon": "devicon-plain:ruby-wordmark" },
+    { "label": "Typescript", "icon": "devicon-plain:typescript" },
+    { "label": "C#", "icon": "devicon-plain:csharp" },
+    { "label": "MySQL", "icon": "devicon-plain:mysql-wordmark" },
+    { "label": "AWS", "icon": "devicon-plain:amazonwebservices-wordmark" },
+    { "label": "Terraform", "icon": "devicon-plain:terraform-wordmark" },
+    { "label": "Docker", "icon": "devicon-plain:docker-wordmark" },
+    { "label": "Git", "icon": "devicon-plain:git-wordmark" },
+    { "label": "Linux/Bash", "icon": "devicon-plain:bash" }
+  ],
+  "categories": [
+    "**Automation:** Selenium, Playwright, POM, BDD, Postman, etc",
+    "**Databases:** MySQL, SQL Server, PostgreSQL, etc",
+    "**Cloud and IaC Technologies:** AWS, Docker, Terraform, etc",
+    "**Web Technologies:** HTML, XML, XPATH, CSS, JavaScript, etc",
+    "**Source Control:** git, SVN, Perforce",
+    "**Collaboration:** Slack, Trello, JIRA, Azure DevOps, Notion, ReadTheDocs, etc",
+    "**Platforms:** Microsoft Windows, Mac OS X, Linux, Bash, Android, iOS, etc"
+  ],
+  "competencies": [
+    "Software Development and Test Automation",
+    "Agile Methodologies and Approaches",
+    "Strategy Development, Implementation and Rollout",
+    "Verbal and Written Communication",
+    "Leadership, Coaching and Mentoring",
+    "Culture and Process Change"
+  ]
+}

@@ -1,0 +1,27 @@
+---
+interface Props {
+  id: string;
+  heading: string;
+  /** The hero has no visible <h2> — its <h1> carries the section name. */
+  headingHidden?: boolean;
+}
+
+const { id, heading, headingHidden = false } = Astro.props;
+---
+
+<section class="resume-section" id={id} aria-labelledby={`${id}-heading`}>
+  <div class="section-inner">
+    {
+      headingHidden ? (
+        <h2 id={`${id}-heading`} class="visually-hidden">
+          {heading}
+        </h2>
+      ) : (
+        <h2 id={`${id}-heading`} class="mb-5">
+          {heading}
+        </h2>
+      )
+    }
+    <slot />
+  </div>
+</section>

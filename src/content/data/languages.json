@@ -1,0 +1,28 @@
+{
+  "groups": [
+    {
+      "label": "Fluent",
+      "languages": [
+        { "name": "English", "nativeName": "English", "icon": "flag:gb-4x3" },
+        { "name": "Afrikaans", "nativeName": "Afrikaans", "icon": "flag:za-4x3" }
+      ]
+    },
+    {
+      "label": "Advanced",
+      "languages": [
+        { "name": "Brazilian Portuguese", "nativeName": "Português Brasileiro", "icon": "flag:br-4x3" },
+        { "name": "Spanish", "nativeName": "Español", "icon": "flag:es-4x3" }
+      ]
+    },
+    {
+      "label": "Basic to Intermediate",
+      "languages": [
+        { "name": "French", "nativeName": "Français", "icon": "flag:fr-4x3" },
+        { "name": "German", "nativeName": "Deutsch", "icon": "flag:de-4x3" },
+        { "name": "Italian", "nativeName": "Italiano", "icon": "flag:it-4x3" },
+        { "name": "Welsh", "nativeName": "Cymraeg", "icon": "flag:gb-wls-4x3" },
+        { "name": "Russian", "nativeName": "Pусский", "icon": "flag:ru-4x3" }
+      ]
+    }
+  ]
+}

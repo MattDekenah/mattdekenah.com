@@ -1,0 +1,72 @@
+---
+import { SITE } from "../config";
+
+// Below 992px this is a fixed top bar with a hamburger; above it, the fixed
+// left sidebar with the profile photo. Both states come from one markup tree,
+// switched entirely in CSS.
+const items = SITE.showContact
+  ? [...SITE.nav, { id: "contact", label: "Contact" }]
+  : SITE.nav;
+---
+
+<nav id="sideNav" aria-label="Section navigation">
+  <a class="navbar-brand" href="/">
+    <span class="brand-text">{SITE.name}</span>
+    <img
+      class="img-profile"
+      src={SITE.profileImage}
+      width="160"
+      height="160"
+      alt={SITE.name}
+    />
+  </a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="navbar-collapse" id="navbarSupportedContent" hidden>
+    <ul class="navbar-nav">
+      {
+        items.map((item) => (
+          <li class="nav-item">
+            <a class="nav-link" href={`/#${item.id}`}>
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</nav>
+
+<script>
+  const nav = document.getElementById("sideNav");
+  const toggler = nav?.querySelector<HTMLButtonElement>(".navbar-toggler");
+  const panel = document.getElementById("navbarSupportedContent");
+  const desktop = window.matchMedia("(min-width: 992px)");
+
+  const setOpen = (open: boolean) => {
+    if (!panel || !toggler) return;
+    panel.hidden = !open;
+    toggler.setAttribute("aria-expanded", String(open));
+  };
+
+  // The sidebar is always visible on desktop, so the hidden attribute is only
+  // meaningful below the breakpoint.
+  const sync = () => setOpen(desktop.matches);
+  sync();
+  desktop.addEventListener("change", sync);
+
+  toggler?.addEventListener("click", () => setOpen(panel?.hidden ?? true));
+
+  // Tapping a section link on mobile should close the menu behind it.
+  panel?.addEventListener("click", (event) => {
+    const link = (event.target as HTMLElement).closest("a");
+    if (link && !desktop.matches) setOpen(false);
+  });
+</script>

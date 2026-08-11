@@ -1,0 +1,69 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  entry: CollectionEntry<"experience">;
+}
+
+const { entry } = Astro.props;
+const {
+  title,
+  company,
+  dates,
+  location,
+  logo,
+  logoAlt,
+  responsibilities,
+  technologies,
+  achievements,
+} = entry.data;
+---
+
+<div class="resume-item">
+  <div class="resume-content">
+    <h3 class="mb-0">{title}</h3>
+    <div class="subheading mb-3">{company}</div>
+    {
+      responsibilities.length > 0 && (
+        <ul class="small">
+          {responsibilities.map((line) => (
+            <li>{line}</li>
+          ))}
+        </ul>
+      )
+    }
+    {
+      technologies && (
+        <>
+          <h6>Technologies/tools</h6>
+          <p class="small">
+            <em>{technologies}</em>
+          </p>
+        </>
+      )
+    }
+    {
+      achievements.length > 0 && (
+        <>
+          <h6>Selected achievements</h6>
+          <ul class="small">
+            {achievements.map((line) => (
+              <li>{line}</li>
+            ))}
+          </ul>
+        </>
+      )
+    }
+  </div>
+  <div class="resume-date">
+    <span class="text-primary">{dates}</span>
+    <br /><span>{location}</span>
+    {
+      logo && (
+        <p class="mt-4">
+          <img src={logo} alt={logoAlt ?? company} loading="lazy" />
+        </p>
+      )
+    }
+  </div>
+</div>

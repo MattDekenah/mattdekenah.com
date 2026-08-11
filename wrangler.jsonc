@@ -1,0 +1,11 @@
+// Cloudflare Workers config — deploys the built site as static assets only.
+// Committing this stops Cloudflare's build system from auto-injecting the
+// @astrojs/cloudflare adapter, which this fully static site does not need.
+{
+  "name": "mattdekenah-com",
+  "compatibility_date": "2026-07-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  }
+}

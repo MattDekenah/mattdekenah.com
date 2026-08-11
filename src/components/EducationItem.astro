@@ -1,0 +1,60 @@
+---
+import { Icon } from "astro-icon/components";
+import type { CollectionEntry } from "astro:content";
+import { inlineMarkdown } from "../lib/inline";
+
+interface Props {
+  entry: CollectionEntry<"education">;
+}
+
+// Each bullet marker keeps the icon and colour it had on the original site.
+const MARKERS = {
+  trophy: { icon: "fa6-solid:trophy", class: "text-warning" },
+  book: { icon: "fa6-solid:book", class: "text-primary" },
+  clock: { icon: "fa6-solid:clock", class: "text-info" },
+  users: { icon: "fa6-solid:users", class: "text-primary" },
+} as const;
+
+const { entry } = Astro.props;
+const {
+  institution,
+  qualification,
+  dates,
+  location,
+  logo,
+  logoAlt,
+  bullets,
+} = entry.data;
+---
+
+<div class="resume-item">
+  <div class="resume-content">
+    <h3 class="mb-0">{institution}</h3>
+    <div class="subheading mb-3" set:html={inlineMarkdown(qualification)} />
+    {
+      bullets.length > 0 && (
+        <ul class="small fa-ul">
+          {bullets.map((bullet) => (
+            <li>
+              <span class={`fa-li ${MARKERS[bullet.icon].class}`}>
+                <Icon name={MARKERS[bullet.icon].icon} />
+              </span>
+              <Fragment set:html={inlineMarkdown(bullet.text)} />
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+  <div class="resume-date resume-date--education">
+    <span class="text-primary">{dates}</span>
+    <br /><span>{location}</span>
+    {
+      logo && (
+        <p class="mt-4">
+          <img src={logo} alt={logoAlt ?? institution} loading="lazy" />
+        </p>
+      )
+    }
+  </div>
+</div>

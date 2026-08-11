@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Utility pages with no search value
+Disallow: /thanks/
+
+Sitemap: https://mattdekenah.com/sitemap-index.xml

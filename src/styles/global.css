@@ -1,0 +1,668 @@
+/*
+ * Design system for mattdekenah.com.
+ *
+ * The original site was the Start Bootstrap "Resume" template: Bootstrap 4
+ * plus a small css/resume.css override file. This replaces both with
+ * hand-written CSS that keeps the same type scale, spacing, colours and
+ * breakpoints, so the rebuilt site looks like the one it replaces.
+ *
+ * Breakpoints, matching Bootstrap 4:
+ *   md  768px  — resume items go two-column (content | date)
+ *   lg  992px  — top navbar becomes the fixed left sidebar
+ */
+
+:root {
+  --green: #060;
+  --green-dark: #040;
+  --body: #868e96;
+  --heading: #343a40;
+  --muted: #495057;
+  --rule: #dee2e6;
+  --warning: #ffc107;
+  --info: #17a2b8;
+  --secondary: #6c757d;
+  --light: #f8f9fa;
+
+  --font-body: "Open Sans Variable", "Open Sans", -apple-system, sans-serif;
+  --font-heading: "Saira Extra Condensed", "Open Sans Variable", sans-serif;
+
+  --sidebar-width: 17rem;
+  --navbar-height: 54px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--navbar-height);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--body);
+  background-color: #fff;
+  padding-top: var(--navbar-height);
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ---------------------------------------------------------------- typography */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--heading);
+  margin: 0 0 0.5rem;
+}
+
+h1 {
+  font-size: 6rem;
+  line-height: 5.5rem;
+}
+
+h2 {
+  font-size: 3.5rem;
+  line-height: 1.2;
+}
+
+h3 {
+  font-size: 1.75rem;
+  line-height: 1.2;
+}
+
+h6 {
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+p {
+  margin: 0 0 1rem;
+}
+
+ul {
+  margin: 0 0 1rem;
+  padding-left: 2.5rem;
+}
+
+em {
+  font-style: italic;
+}
+
+strong {
+  font-weight: 700;
+}
+
+a {
+  color: var(--green);
+  text-decoration: none;
+}
+
+a:hover,
+a:focus,
+a:active {
+  color: var(--green-dark);
+  text-decoration: underline;
+}
+
+.subheading {
+  text-transform: uppercase;
+  font-weight: 500;
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  line-height: 1.3;
+}
+
+.small {
+  font-size: 0.8rem;
+}
+
+.text-primary {
+  color: var(--green);
+}
+
+.text-warning {
+  color: var(--warning);
+}
+
+.text-info {
+  color: var(--info);
+}
+
+.text-dark {
+  color: var(--heading);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 1100;
+  padding: 0.75rem 1rem;
+  background: var(--green);
+  color: #fff;
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
+/* --------------------------------------------------------------- navigation */
+
+#sideNav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  background-color: var(--green);
+}
+
+#sideNav .navbar-brand {
+  display: inline-block;
+  padding: 0.3125rem 0;
+  margin-right: 1rem;
+  font-size: 1.25rem;
+  line-height: inherit;
+  white-space: nowrap;
+  color: #fff;
+}
+
+#sideNav .navbar-brand:hover,
+#sideNav .navbar-brand:focus {
+  color: #fff;
+  text-decoration: none;
+}
+
+#sideNav .img-profile {
+  display: none;
+}
+
+.navbar-toggler {
+  padding: 0.25rem 0.75rem;
+  font-size: 1.25rem;
+  line-height: 1;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.navbar-toggler-icon {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+  background: no-repeat center center;
+  background-size: 100% 100%;
+  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba%28255,255,255,0.5%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.navbar-collapse {
+  flex-basis: 100%;
+  flex-grow: 1;
+  align-items: center;
+}
+
+.navbar-collapse[hidden] {
+  display: none;
+}
+
+.navbar-nav {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.navbar-nav .nav-link {
+  display: block;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:focus {
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+}
+
+@media (min-width: 992px) {
+  body {
+    padding-top: 0;
+    padding-left: var(--sidebar-width);
+  }
+
+  html {
+    scroll-padding-top: 0;
+  }
+
+  #sideNav {
+    text-align: center;
+    right: auto;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    width: var(--sidebar-width);
+    height: 100vh;
+  }
+
+  #sideNav .navbar-brand {
+    display: flex;
+    margin: auto auto 0;
+    padding: 0.5rem;
+  }
+
+  #sideNav .navbar-brand .brand-text {
+    display: none;
+  }
+
+  #sideNav .img-profile {
+    display: block;
+    width: 10rem;
+    height: 10rem;
+    max-width: 10rem;
+    max-height: 10rem;
+    margin: 0 auto 0.5rem;
+    border: 0.5rem solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .navbar-toggler {
+    display: none;
+  }
+
+  #sideNav .navbar-collapse {
+    display: flex !important;
+    align-items: flex-start;
+    flex-grow: 0;
+    /* Without this the panel claims the sidebar's full height and the auto
+       margins have no free space left to centre the photo and links with. */
+    flex-basis: auto;
+    width: 100%;
+    margin-bottom: auto;
+  }
+
+  #sideNav .navbar-nav {
+    width: 100%;
+  }
+
+  #sideNav .navbar-nav .nav-link {
+    padding: 0.5rem;
+  }
+}
+
+/* ------------------------------------------------------------------ sections */
+
+.resume-section {
+  display: flex;
+  padding: 5rem 1rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.resume-section > .section-inner {
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .resume-section {
+    min-height: 100vh;
+  }
+}
+
+@media (min-width: 992px) {
+  .resume-section {
+    padding: 3rem;
+  }
+}
+
+/* --------------------------------------------------------------- resume items */
+
+.resume-item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3rem;
+}
+
+.resume-item:last-child {
+  margin-bottom: 0;
+}
+
+.resume-content {
+  margin-right: auto;
+}
+
+.resume-date {
+  min-width: none;
+}
+
+.resume-date img {
+  max-width: 200px;
+  max-height: 200px;
+  height: auto;
+}
+
+.resume-date--education img {
+  max-width: 100px;
+  max-height: 100px;
+}
+
+@media (min-width: 768px) {
+  .resume-item {
+    flex-direction: row;
+  }
+
+  .resume-date {
+    min-width: 18rem;
+    text-align: right;
+  }
+}
+
+/* ------------------------------------------------------------------ icon list */
+
+.fa-ul {
+  padding-left: 0;
+  margin-left: 2.5em;
+  list-style-type: none;
+}
+
+.fa-ul > li {
+  position: relative;
+}
+
+.fa-li {
+  position: absolute;
+  left: -2em;
+  top: 0.2em;
+  width: 2em;
+  text-align: center;
+  line-height: inherit;
+}
+
+.fa-li svg {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.125em;
+}
+
+/* ---------------------------------------------------------------- hero extras */
+
+.list-inline {
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+.list-inline-item {
+  display: inline-block;
+}
+
+.list-inline-item:not(:last-child) {
+  margin-right: 0.5rem;
+}
+
+/* 12px gap = Bootstrap's 0.5rem list-inline-item margin plus the 4px of
+   inline whitespace between the original's inline-block list items. */
+.list-social-icons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.list-social-icons .list-inline-item:not(:last-child) {
+  margin-right: 0;
+}
+
+.social-group-label {
+  display: inline-block;
+  width: 70px;
+  padding: 0.375rem 0.75rem;
+  text-align: center;
+  color: var(--light);
+  background-color: var(--secondary);
+  border: 1px solid var(--secondary);
+  border-radius: 0.25rem;
+  cursor: default;
+}
+
+/* The original wraps the label text in a block-level div inside the button. */
+.social-group-label .subheading {
+  display: block;
+}
+
+/* Reproduces Font Awesome's `fa-stack` circle-plus-inverse-glyph pattern: a
+   70px box (2.5em at the original's 1.75rem stack font-size) holding a 3.5rem
+   disc in the link colour, with a 1.75rem white glyph on top. */
+.list-social-icons a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  color: var(--muted);
+  transition: color 0.15s ease-in-out;
+}
+
+.list-social-icons a:hover,
+.list-social-icons a:focus {
+  color: var(--green);
+  text-decoration: none;
+}
+
+.social-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+.list-social-icons a svg {
+  width: auto;
+  height: 1.75rem;
+  color: #fff;
+}
+
+.hero-contact a {
+  white-space: nowrap;
+}
+
+.hero-contact svg {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.125em;
+}
+
+/* -------------------------------------------------------------- skills icons */
+
+/* As above, but the inline whitespace scales with the 3rem font-size: 8px of
+   margin plus roughly 12px of collapsed space. */
+.list-icons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.list-icons .list-inline-item:not(:last-child) {
+  margin-right: 0;
+}
+
+.list-icons svg {
+  width: auto;
+  height: 1em;
+  color: var(--body);
+  transition: color 0.15s ease-in-out;
+}
+
+.list-icons svg:hover {
+  color: var(--green);
+}
+
+/* ------------------------------------------------------------------ languages */
+
+.language-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 12px;
+}
+
+.language-list svg {
+  width: auto;
+  height: 1em;
+  vertical-align: -0.1em;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+/* ------------------------------------------------------------------ contact */
+
+.contact-form {
+  max-width: 40rem;
+}
+
+.contact-form label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--heading);
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 1rem;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--heading);
+  background-color: #fff;
+  border: 1px solid var(--rule);
+  border-radius: 0.25rem;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: 2px solid var(--green);
+  outline-offset: 1px;
+  border-color: var(--green);
+}
+
+.contact-form textarea {
+  min-height: 8rem;
+  resize: vertical;
+}
+
+.contact-form button {
+  padding: 0.5rem 1.5rem;
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: #fff;
+  background-color: var(--green);
+  border: 1px solid var(--green);
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.contact-form button:hover {
+  background-color: var(--green-dark);
+  border-color: var(--green-dark);
+}
+
+.form-status {
+  margin-top: 1rem;
+  font-weight: 600;
+}
+
+/* ---------------------------------------------------- spacing utilities
+
+   Bootstrap 4's margin scale, kept last in the file so these always win over
+   the component rules above — the original markup leans on mb-* throughout. */
+
+.mb-0 {
+  margin-bottom: 0;
+}
+.mb-1 {
+  margin-bottom: 0.25rem;
+}
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+.mb-3 {
+  margin-bottom: 1rem;
+}
+.mb-4 {
+  margin-bottom: 1.5rem;
+}
+.mb-5 {
+  margin-bottom: 3rem;
+}
+.mt-4 {
+  margin-top: 1.5rem;
+}
+
+/* ------------------------------------------------------ small-screen type scale */
+
+/* The original keeps the 6rem h1 at every width, which is what the mobile
+   layout is meant to look like — "MATTHEW" and "DEKENAH" stack. Below 360px
+   that would overflow the viewport and force a horizontal scrollbar, so the
+   type scale steps down only there. */
+@media (max-width: 359.98px) {
+  h1 {
+    font-size: 4rem;
+    line-height: 3.75rem;
+  }
+
+  h2 {
+    font-size: 2.75rem;
+  }
+}

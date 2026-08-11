@@ -1,0 +1,224 @@
+# Pages CMS configuration — https://pagescms.org/docs/
+# Sign in at https://app.pagescms.org with GitHub to edit the CV without
+# touching the code. Saving commits to this repo, which triggers a deploy.
+#
+# Several fields accept a little inline markdown — `**bold**`, `*italic*` and
+# `[text](https://url)`. Those are the fields whose labels say so.
+
+media:
+  input: public/images
+  output: /images
+
+content:
+  - name: hero
+    label: Hero (About)
+    type: file
+    path: src/content/site/hero.md
+    fields:
+      - name: body
+        label: Intro text
+        type: rich-text
+        description: The blurb under your name, and the current role line.
+
+  - name: profile
+    label: Professional Profile
+    type: file
+    path: src/content/site/profile.md
+    fields:
+      - name: interests
+        label: Personal interests
+        type: text
+        required: true
+      - name: body
+        label: Profile text
+        type: rich-text
+
+  - name: experience
+    label: Experience
+    type: collection
+    path: src/content/experience
+    filename: "{fields.order}-{fields.company}-{fields.title}.md"
+    view:
+      fields: [order, title, company, dates]
+      sort: [order]
+      default:
+        sort: order
+        order: asc
+    fields:
+      - name: order
+        label: Order on the page (1 = top)
+        type: number
+        required: true
+      - name: title
+        label: Job title
+        type: string
+        required: true
+      - name: company
+        label: Company
+        type: string
+        required: true
+      - name: dates
+        label: Dates (e.g. "November 2024 - Present")
+        type: string
+        required: true
+      - name: location
+        label: Location
+        type: string
+        required: true
+      - name: logo
+        label: Company logo
+        type: image
+      - name: logoAlt
+        label: Logo alt text
+        type: string
+      - name: responsibilities
+        label: Responsibilities
+        type: string
+        list: true
+      - name: technologies
+        label: Technologies/tools (comma separated)
+        type: string
+      - name: achievements
+        label: Selected achievements
+        type: string
+        list: true
+
+  - name: education
+    label: Education
+    type: collection
+    path: src/content/education
+    filename: "{fields.order}-{fields.institution}.md"
+    view:
+      fields: [order, institution, qualification, dates]
+      sort: [order]
+      default:
+        sort: order
+        order: asc
+    fields:
+      - name: order
+        label: Order on the page (1 = top)
+        type: number
+        required: true
+      - name: institution
+        label: Institution
+        type: string
+        required: true
+      - name: qualification
+        label: Qualification (supports **bold** and *italic*)
+        type: string
+        required: true
+      - name: dates
+        label: Dates
+        type: string
+        required: true
+      - name: location
+        label: Location
+        type: string
+        required: true
+      - name: logo
+        label: Institution logo
+        type: image
+      - name: logoAlt
+        label: Logo alt text
+        type: string
+      - name: bullets
+        label: Bullets
+        type: object
+        list: true
+        fields:
+          - name: icon
+            label: Marker
+            type: select
+            default: trophy
+            options:
+              values: [trophy, book, clock, users]
+          - name: text
+            label: Text (supports **bold** and *italic*)
+            type: string
+            required: true
+
+  - name: certifications
+    label: Certifications & Courses
+    type: file
+    path: src/content/data/certifications.json
+    format: json
+    fields:
+      - name: certifications
+        label: Certifications (supports **bold** and *italic*)
+        type: string
+        list: true
+      - name: courses
+        label: Additional courses (supports **bold** and *italic*)
+        type: string
+        list: true
+
+  - name: skills
+    label: Skills
+    type: file
+    path: src/content/data/skills.json
+    format: json
+    fields:
+      - name: technologies
+        label: Tool and technology logos
+        type: object
+        list: true
+        fields:
+          - name: label
+            label: Name (shown on hover)
+            type: string
+            required: true
+          - name: icon
+            label: Icon (a devicon-plain name — see https://icon-sets.iconify.design/devicon-plain/)
+            type: string
+            required: true
+      - name: categories
+        label: Skill categories (supports **bold** and *italic*)
+        type: string
+        list: true
+      - name: competencies
+        label: Key competencies
+        type: string
+        list: true
+
+  - name: languages
+    label: Languages
+    type: file
+    path: src/content/data/languages.json
+    format: json
+    fields:
+      - name: groups
+        label: Proficiency groups
+        type: object
+        list: true
+        fields:
+          - name: label
+            label: Group heading (e.g. Fluent)
+            type: string
+            required: true
+          - name: languages
+            label: Languages
+            type: object
+            list: true
+            fields:
+              - name: name
+                label: Language
+                type: string
+                required: true
+              - name: nativeName
+                label: Native name (shown on hover)
+                type: string
+              - name: icon
+                label: Flag (a flag icon name — see https://icon-sets.iconify.design/flag/)
+                type: string
+                required: true
+
+  - name: awards
+    label: Awards & Honours
+    type: file
+    path: src/content/data/awards.json
+    format: json
+    fields:
+      - name: awards
+        label: Awards (supports **bold** and *italic*)
+        type: string
+        list: true

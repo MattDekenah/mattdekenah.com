@@ -1,0 +1,19 @@
+---
+import Base from "../layouts/Base.astro";
+import { SITE } from "../config";
+---
+
+<Base title="Page not found" noindex>
+  <section class="resume-section" id="not-found">
+    <div class="section-inner">
+      <h1 class="mb-0">Not <span class="text-primary">Found</span></h1>
+      <div class="subheading mb-5">Error 404</div>
+      <p class="mb-3">
+        That page does not exist. It may have moved, or the link may be wrong.
+      </p>
+      <p class="mb-5">
+        <a href="/">Back to {SITE.name}</a>
+      </p>
+    </div>
+  </section>
+</Base>

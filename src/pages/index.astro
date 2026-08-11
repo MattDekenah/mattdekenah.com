@@ -1,0 +1,216 @@
+---
+import { Icon } from "astro-icon/components";
+import { getCollection, getEntry, render } from "astro:content";
+import Base from "../layouts/Base.astro";
+import Section from "../components/Section.astro";
+import ExperienceItem from "../components/ExperienceItem.astro";
+import EducationItem from "../components/EducationItem.astro";
+import ContactForm from "../components/ContactForm.astro";
+import { SITE, EMAIL } from "../config";
+import { inlineMarkdown, obfuscate } from "../lib/inline";
+import certifications from "../content/data/certifications.json";
+import skills from "../content/data/skills.json";
+import languages from "../content/data/languages.json";
+import awards from "../content/data/awards.json";
+
+const byOrder = (a: { data: { order: number } }, b: { data: { order: number } }) =>
+  a.data.order - b.data.order;
+
+const experience = (await getCollection("experience")).sort(byOrder);
+const education = (await getCollection("education")).sort(byOrder);
+
+const heroEntry = await getEntry("site", "hero");
+const profileEntry = await getEntry("site", "profile");
+const { Content: Hero } = await render(heroEntry!);
+const { Content: Profile } = await render(profileEntry!);
+
+// Emitted as raw HTML so the entity-encoded address survives into the markup
+// instead of being escaped a second time by Astro's attribute handling.
+const mailtoLink = `<a href="${obfuscate(`mailto:${EMAIL}`)}">${obfuscate(EMAIL)}</a>`;
+---
+
+<Base>
+  <Section id="about" heading="About" headingHidden>
+    <h1 class="mb-0">
+      {SITE.firstName}{" "}
+      <span class="text-primary">{SITE.lastName}</span>
+    </h1>
+    <div class="subheading mb-5 hero-contact">
+      {SITE.location} &middot;{" "}
+      <Fragment set:html={mailtoLink} />{" "}
+      &middot;{" "}
+      <a href={SITE.cvPath} title="Download PDF CV">
+        <Icon name="fa6-regular:file-pdf" /> Download CV
+      </a>
+    </div>
+    <Hero />
+
+    <ul class="list-inline list-social-icons mb-3">
+      <li class="list-inline-item">
+        <span class="social-group-label">
+          <span class="subheading">Work</span>
+        </span>
+      </li>
+      {
+        SITE.social.work.map((link) => (
+          <li class="list-inline-item">
+            <a href={link.href} title={link.title} target="_blank" rel="noopener">
+              <span class="social-badge">
+                <Icon name={link.icon} />
+              </span>
+              <span class="visually-hidden">{link.label}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <ul class="list-inline list-social-icons mb-3">
+      <li class="list-inline-item">
+        <span class="social-group-label">
+          <span class="subheading">Play</span>
+        </span>
+      </li>
+      {
+        SITE.social.play.map((link) => (
+          <li class="list-inline-item">
+            <a href={link.href} title={link.title} target="_blank" rel="noopener">
+              <span class="social-badge">
+                <Icon name={link.icon} />
+              </span>
+              <span class="visually-hidden">{link.label}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  <Section id="profile" heading="Professional Profile">
+    <Profile />
+    <div class="subheading mb-3">Personal Interests</div>
+    <p class="mb-2">{profileEntry!.data.interests}</p>
+  </Section>
+
+  <Section id="experience" heading="Experience">
+    {experience.map((entry) => <ExperienceItem entry={entry} />)}
+  </Section>
+
+  <Section id="education" heading="Education">
+    {education.map((entry) => <EducationItem entry={entry} />)}
+  </Section>
+
+  <Section id="certifications" heading="Certifications & Courses">
+    <div class="subheading mb-3">Certifications</div>
+    <ul class="fa-ul mb-5">
+      {
+        certifications.certifications.map((item) => (
+          <li>
+            <span class="fa-li text-dark">
+              <Icon name="fa6-solid:graduation-cap" />
+            </span>
+            <Fragment set:html={inlineMarkdown(item)} />
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="subheading mb-3">Additional Courses</div>
+    <ul class="fa-ul mb-0">
+      {
+        certifications.courses.map((item) => (
+          <li>
+            <span class="fa-li text-info">
+              <Icon name="fa6-solid:certificate" />
+            </span>
+            <Fragment set:html={inlineMarkdown(item)} />
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  <Section id="skills" heading="Skills">
+    <div class="subheading mb-1">Selected Tools &amp; Technologies</div>
+    <ul class="list-inline list-icons">
+      {
+        skills.technologies.map((tech) => (
+          <li class="list-inline-item" title={tech.label}>
+            <Icon name={tech.icon} />
+            <span class="visually-hidden">{tech.label}</span>
+          </li>
+        ))
+      }
+    </ul>
+
+    <ul class="fa-ul mb-3">
+      {
+        skills.categories.map((item) => (
+          <li>
+            <span class="fa-li">
+              <Icon name="fa6-solid:gear" />
+            </span>
+            <Fragment set:html={inlineMarkdown(item)} />
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="subheading mb-3">Key Competencies</div>
+    <ul class="fa-ul mb-0">
+      {
+        skills.competencies.map((item) => (
+          <li>
+            <span class="fa-li">
+              <Icon name="fa6-solid:check" />
+            </span>
+            <Fragment set:html={inlineMarkdown(item)} />
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  <Section id="languages" heading="Languages">
+    {
+      languages.groups.map((group) => (
+        <>
+          <div class="subheading mb-3">{group.label}</div>
+          <ul class="list-inline language-list mb-4">
+            {group.languages.map((language) => (
+              <li class="list-inline-item" title={language.nativeName}>
+                <Icon name={language.icon} /> {language.name}
+              </li>
+            ))}
+          </ul>
+        </>
+      ))
+    }
+  </Section>
+
+  <Section id="awards" heading="Awards & Honours">
+    <ul class="fa-ul mb-0">
+      {
+        awards.awards.map((item) => (
+          <li>
+            <span class="fa-li text-warning">
+              <Icon name="fa6-solid:trophy" />
+            </span>
+            <Fragment set:html={inlineMarkdown(item)} />
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  {
+    SITE.showContact && (
+      <Section id="contact" heading="Contact">
+        <p class="mb-4">
+          Drop me a line and I'll get back to you.
+        </p>
+        <ContactForm />
+      </Section>
+    )
+  }
+</Base>
