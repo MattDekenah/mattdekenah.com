@@ -8,6 +8,7 @@ import EducationItem from "../components/EducationItem.astro";
 import ContactForm from "../components/ContactForm.astro";
 import { SITE, EMAIL } from "../config";
 import { inlineMarkdown, obfuscate } from "../lib/inline";
+import { personSchema } from "../lib/schema";
 import certifications from "../content/data/certifications.json";
 import skills from "../content/data/skills.json";
 import languages from "../content/data/languages.json";
@@ -27,9 +28,19 @@ const { Content: Profile } = await render(profileEntry!);
 // Emitted as raw HTML so the entity-encoded address survives into the markup
 // instead of being escaped a second time by Astro's attribute handling.
 const mailtoLink = `<a href="${obfuscate(`mailto:${EMAIL}`)}">${obfuscate(EMAIL)}</a>`;
+
+// Structured data built from the CV content, so it cannot drift from what the
+// page actually says as the content is edited.
+const schema = personSchema({
+  alumniOf: education.map((entry) => entry.data.institution),
+  knowsLanguage: languages.groups.flatMap((group) =>
+    group.languages.map((language) => language.name),
+  ),
+  knowsAbout: SITE.knowsAbout,
+});
 ---
 
-<Base>
+<Base schema={schema}>
   <Section id="about" heading="About" headingHidden>
     <h1 class="mb-0">
       {SITE.firstName}{" "}

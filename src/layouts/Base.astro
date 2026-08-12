@@ -4,35 +4,25 @@ import "@fontsource/saira-extra-condensed/500.css";
 import "@fontsource/saira-extra-condensed/700.css";
 import "../styles/global.css";
 import Nav from "../components/Nav.astro";
-import { SITE, EMAIL } from "../config";
+import { SITE } from "../config";
+import { personSchema } from "../lib/schema";
 
 interface Props {
   title?: string;
   description?: string;
   noindex?: boolean;
+  /** The home page passes a richer Person object built from the CV content. */
+  schema?: Record<string, unknown>;
 }
 
-const { title, description = SITE.description, noindex = false } = Astro.props;
+const {
+  title,
+  description = SITE.description,
+  noindex = false,
+  schema = personSchema(),
+} = Astro.props;
 
-const structuredData = JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: SITE.name,
-  givenName: SITE.firstName,
-  familyName: SITE.lastName,
-  description: SITE.description,
-  url: SITE.url,
-  image: `${SITE.url}${SITE.ogImage}`,
-  email: `mailto:${EMAIL}`,
-  jobTitle: SITE.jobTitle,
-  worksFor: { "@type": "Organization", name: "ClearScore" },
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: SITE.addressLocality,
-    addressCountry: SITE.addressCountry,
-  },
-  sameAs: [...SITE.social.work, ...SITE.social.play].map((link) => link.href),
-});
+const structuredData = JSON.stringify(schema);
 
 const pageTitle = title
   ? `${title} // ${SITE.name}`
@@ -41,18 +31,21 @@ const canonical = new URL(Astro.url.pathname, SITE.url).href;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={SITE.lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
-    <meta name="keywords" content={SITE.keywords} />
     <meta name="author" content={SITE.name} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <meta name="theme-color" content="#006600" />
     <meta property="og:type" content="profile" />
+    <meta property="og:locale" content={SITE.locale} />
+    <meta property="profile:first_name" content={SITE.firstName} />
+    <meta property="profile:last_name" content={SITE.lastName} />
+    <meta property="profile:username" content={SITE.username} />
     <meta property="og:url" content={canonical} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />

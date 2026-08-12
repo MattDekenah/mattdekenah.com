@@ -1,7 +1,9 @@
 User-agent: *
 Allow: /
 
-# Utility pages with no search value
-Disallow: /thanks/
+# /thanks and /404 carry a noindex meta tag rather than being disallowed here.
+# Blocking them in robots.txt would stop crawlers fetching the page at all,
+# which means they would never see the noindex — and Google can still list a
+# disallowed URL it has found elsewhere.
 
 Sitemap: https://mattdekenah.com/sitemap-index.xml

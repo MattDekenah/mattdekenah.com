@@ -5,17 +5,36 @@ export const SITE = {
   name: "Matthew Dekenah",
   firstName: "Matthew",
   lastName: "Dekenah",
-  tagline: "Software Engineering Manager (formerly Test Engineer) and Politico",
+  // Kept under 60 characters so Google shows it whole rather than truncating
+  // mid-phrase. The longer "(formerly Test Engineer)" framing lives in the
+  // meta description instead, where there is room for it.
+  tagline: "Software Engineering Manager and Politico",
   jobTitle: "Senior Engineering Manager",
+  employer: "ClearScore",
+  employerUrl: "https://www.clearscore.com",
   url: "https://mattdekenah.com",
   description:
     "Matthew Dekenah is a software engineering manager and former test engineer based in Cape Town, South Africa and a green, lefty, liberal politico.",
-  keywords:
-    "matthew, dekenah, software, engineer, engineering manager, manager, tester, test engineer, software testing, politics, green politics, edinburgh, scotland, cape town, south africa, qa, developer, automation",
+
+  // Used for <html lang> and og:locale — the copy is British English.
+  lang: "en-GB",
+  locale: "en_GB",
+  username: "MattDekenah",
 
   location: "Cape Town, South Africa",
   addressLocality: "Cape Town",
   addressCountry: "ZA",
+
+  // Person.knowsAbout in the structured data. Keep this to things the CV
+  // actually evidences — search engines treat it as a claim about expertise.
+  knowsAbout: [
+    "Software engineering management",
+    "Software testing",
+    "Test automation",
+    "Quality engineering",
+    "Agile software development",
+    "Engineering leadership",
+  ],
 
   // Split so the template can assemble a mailto: link without ever putting the
   // full address in the markup as a single scrapeable string.

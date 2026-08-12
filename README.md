@@ -86,12 +86,8 @@ sidebar. `/thanks` already exists as the no-JavaScript fallback.
 
 ## Deployment
 
-Not yet connected. The intended setup, matching the other two sites:
-
-1. Push this directory to a new GitHub repo.
-2. In Cloudflare, create a Workers project connected to that repo. Build
-   command `npm run build`, output directory `dist`.
-3. Point `mattdekenah.com` at it and retire the old static site.
+Live at [mattdekenah.com](https://mattdekenah.com) via Cloudflare, connected to
+this repo's `main` branch — every push redeploys automatically.
 
 `wrangler.jsonc` is committed deliberately — it stops Cloudflare's build
 system auto-injecting the `@astrojs/cloudflare` adapter, which a fully static
@@ -102,19 +98,32 @@ site does not need.
 The codebase side of SEO is done:
 
 - `astro.config.mjs` runs `@astrojs/sitemap`, generating `sitemap-index.xml`
-  at build time (excludes `/thanks`)
-- `public/robots.txt` allows crawling and points at the sitemap
-- `index.astro` carries `Person` JSON-LD (name, job title, employer, email,
-  address, social profiles) via `src/layouts/Base.astro`
-- Every page has a proper `<title>`, meta description, canonical URL and Open
-  Graph tags
+  at build time (only `/` — `/thanks` and `/404` are excluded)
+- `public/robots.txt` allows crawling and points at the sitemap. `/thanks` and
+  `/404` are kept out of the index with a `noindex` meta tag rather than a
+  `Disallow`: blocking them here would stop crawlers fetching the pages at
+  all, so they would never see the `noindex`
+- `src/lib/schema.ts` builds `Person` JSON-LD. The home page passes in
+  `alumniOf`, `knowsLanguage` and `knowsAbout`, the first two derived from the
+  education and languages content, so the structured data cannot drift from
+  what the page says. It deliberately omits `email` — the visible address is
+  entity-obfuscated, and repeating it in plain JSON-LD would undo that for no
+  search benefit
+- The `<title>` is kept under 60 characters so Google shows it whole
+- Every page has a meta description, canonical URL, Open Graph and
+  `og:type: profile` tags
 
-What's left needs Matthew's own Google/Bing account:
+What's left needs Matthew's own accounts:
 
-1. **Google Search Console** — add `mattdekenah.com` as a property, verify via
-   a DNS TXT record (easiest once Cloudflare manages the domain), then submit
-   `https://mattdekenah.com/sitemap-index.xml` under **Sitemaps**.
-2. **Bing Webmaster Tools** — import the verified Google property, or verify
+1. **Force HTTPS.** `http://mattdekenah.com/` currently serves 200 rather than
+   redirecting. Turn on **SSL/TLS → Edge Certificates → Always Use HTTPS** in
+   Cloudflare so there is one canonical scheme.
+2. **Google Search Console** — add `mattdekenah.com` as a property, verify via
+   a DNS TXT record (easiest since Cloudflare manages the domain), then submit
+   `https://mattdekenah.com/sitemap-index.xml` under **Sitemaps**. Use **URL
+   Inspection → Request Indexing** to speed up the first crawl of the rebuilt
+   site.
+3. **Bing Webmaster Tools** — import the verified Google property, or verify
    the same way and submit the same sitemap.
 
 The old site had Google Analytics (`UA-832650-8`) on it. That property is
