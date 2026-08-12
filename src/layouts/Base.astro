@@ -25,8 +25,8 @@ const {
 const structuredData = JSON.stringify(schema);
 
 const pageTitle = title
-  ? `${title} // ${SITE.name}`
-  : `${SITE.name} // ${SITE.tagline}`;
+  ? `${title} | ${SITE.name}`
+  : `${SITE.name} | ${SITE.tagline}`;
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
 ---
 

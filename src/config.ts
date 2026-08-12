@@ -5,10 +5,10 @@ export const SITE = {
   name: "Matthew Dekenah",
   firstName: "Matthew",
   lastName: "Dekenah",
-  // Kept under 60 characters so Google shows it whole rather than truncating
-  // mid-phrase. The longer "(formerly Test Engineer)" framing lives in the
-  // meta description instead, where there is room for it.
-  tagline: "Software Engineering Manager and Politico",
+  // The descriptor after the name in <title> and og:title. Kept well under 60
+  // characters so Google shows it whole. Held separately from jobTitle below
+  // so the page title can be worded independently of the structured data.
+  tagline: "Senior Engineering Manager",
   jobTitle: "Senior Engineering Manager",
   employer: "ClearScore",
   employerUrl: "https://www.clearscore.com",
